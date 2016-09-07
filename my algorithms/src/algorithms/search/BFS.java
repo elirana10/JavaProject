@@ -13,7 +13,8 @@ import java.util.List;
 * @since   2016-08-27 
 */
 
-public class BFS<T> extends CommonSearcher<T> {
+// Change Comment
+public class BFS<T> extends CommonSearcher<T>{
 	
 	/**
 	   * The search method is used to implement the BFS algorithm.
