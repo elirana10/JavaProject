@@ -19,6 +19,26 @@ public class Maze3d {
 		Init();
 	}
 
+	public Maze3d(byte[] byteArr) {
+		int i = 0;
+		//Initialize the maze and it's size 
+		this.floors = byteArr[i++];
+		this.rows = byteArr[i++];
+		this.cols = byteArr[i++];
+		this.maze = new int[floors][rows][cols];
+		//Set the start and goal position
+		this.setStartPosition(new Position(byteArr[i++],byteArr[i++],byteArr[i++]));
+		this.setGoalPosition(new Position(byteArr[i++],byteArr[i++],byteArr[i++]));
+		//Set the maze
+		for (int x = 0; x < floors; x++) {
+			for (int y = 0; y < rows; y++) {
+				for (int z = 0; z < cols; z++) {
+					maze[x][y][z] = byteArr[i++];
+				}
+			}
+		}
+	}
+	
 	private void Init() {
 		for (int x = 0; x < floors; x++) {
 			for (int y = 0; y < rows; y++) {
@@ -157,5 +177,51 @@ public class Maze3d {
 			sb.append("\n");
 		}
 		return sb.toString();
+	}
+	
+	public byte[] toByteArray()
+	{
+		ArrayList<Byte> bArrLST = new ArrayList<Byte>();
+		//Add the size of the maze 
+		bArrLST.add((byte)floors);
+		bArrLST.add((byte)rows);
+		bArrLST.add((byte)cols);
+		//Add the start and goal positions
+		bArrLST.add((byte)startPosition.x);
+		bArrLST.add((byte)startPosition.y);
+		bArrLST.add((byte)startPosition.z);
+		bArrLST.add((byte)goalPosition.x);
+		bArrLST.add((byte)goalPosition.y);
+		bArrLST.add((byte)goalPosition.z);
+		//Add the maze
+		for (int x = 0; x < floors; x++) {
+			for (int y = 0; y < rows; y++) {
+				for (int z = 0; z < cols; z++) {
+					bArrLST.add((byte)maze[x][y][z]);
+				}
+			}
+		}
+		//Copy the ArrayList to the byte array
+		byte[] byteArr = new byte[bArrLST.size()];
+		for (int i = 0; i < byteArr.length; i++) {
+			byteArr[i] = (byte)bArrLST.get(i);
+		}
+		return byteArr;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Maze3d m = (Maze3d)obj;
+		if (!this.startPosition.equals(m.startPosition) || !this.goalPosition.equals(m.goalPosition))
+			return false;
+		for (int x = 0; x < floors; x++) {
+			for (int y = 0; y < rows; y++) {
+				for (int z = 0; z < cols; z++) {
+					if (this.maze[x][y][z]!=m.maze[x][y][z])
+						return false;
+				}
+			}
+		}
+		return true;
 	}
 }
