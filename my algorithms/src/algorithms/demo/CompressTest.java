@@ -16,15 +16,11 @@ import io.MyDecompressorInputStream;
 public class CompressTest {
 
 	public static void main(String[] args) {
-		
+		// Create Maze
 		Maze3dGenerator gn = new GrowingTreeGenerator();
 		Maze3d maze = gn.generate(2,6,6);
-		System.out.println(maze.toString());
-		System.out.println();
-		byte[] bArr = maze.toByteArray();
-		for(int i=0;i<bArr.length;i++)
-			System.out.print(bArr[i]);
-		System.out.println();
+//		byte[] bArr = maze.toByteArray();
+		
 		// save it to a file
 		OutputStream out;
 		try {
@@ -44,9 +40,8 @@ public class CompressTest {
 		byte b[] = new byte[maze.toByteArray().length];
 		in.read(b);
 		in.close();
-		Maze3d loaded=new Maze3d(b);
-		for(int i=0;i<b.length;i++)
-			System.out.print(b[i]);
+		
+		Maze3d loaded = new Maze3d(b);
 		System.out.println(loaded.equals(maze));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -54,5 +49,4 @@ public class CompressTest {
 			e.printStackTrace();
 		}
 	}
-
 }
