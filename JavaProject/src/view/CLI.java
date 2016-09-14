@@ -14,10 +14,9 @@ public class CLI {
 	
 	private static final String EXITKEY = "exit";
 	
-	public CLI(BufferedReader in, PrintWriter out, HashMap<String, Command> commands) {
+	public CLI(BufferedReader in, PrintWriter out) {
 		this.out = out;
 		this.in = in;
-		this.commands = commands;
 	}
 	
 	private void printMenu() {
