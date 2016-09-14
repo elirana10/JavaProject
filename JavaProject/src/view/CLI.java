@@ -28,7 +28,7 @@ public class CLI {
 		out.flush();
 	}
 	
-	public void start() throws IOException {
+	public void start() {
 		Thread t = new Thread(new Runnable() {
 			
 			@Override
@@ -54,11 +54,12 @@ public class CLI {
 								args = commandArgs.split(" ");
 							}
 							cmd.doCommand(args);
+							
+							if (command.equals(EXITKEY)) {
+								break;
+							}
 						}
 						
-						if (command.equals(EXITKEY)) {
-							break;
-						}
 						
 						// OPT2: one of the words in the Line is the command
 //						for (String word : commandArr) {

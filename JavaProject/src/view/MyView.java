@@ -1,6 +1,7 @@
 package view;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.PrintWriter;
 import java.util.HashMap;
 
@@ -19,7 +20,7 @@ public class MyView implements View {
 		this.in = in;
 		this.out = out;
 		
-		cli = new CLI(in, out);
+		this.cli = new CLI(in, out);
 	}
 	
 	@Override
@@ -34,13 +35,28 @@ public class MyView implements View {
 	
 	@Override
 	public void notifyMazeIsReady(String name) {
-		out.println("maze " + name + " is ready");
+		out.println("Maze " + name + " is ready");
 		out.flush();
 	}
 	
 	@Override
 	public void displayMaze(Maze3d maze) {
 		out.println(maze);
+		out.flush();
+	}
+	public void display2dMaze(int[][] maze) {		
+			StringBuilder sb = new StringBuilder();
+			for (int x = 0; x < maze.length; x++) {
+				for (int y = 0; x < maze[0].length; y++) {
+						sb.append(maze[y][x]);
+				}
+				sb.append("\n");
+			}
+			out.println(sb.toString());
+			out.flush();
+	}
+	public void displayFile(File file) {
+		out.println(file);
 		out.flush();
 	}
 	

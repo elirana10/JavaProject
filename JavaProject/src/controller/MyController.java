@@ -1,5 +1,6 @@
 package controller;
 
+import algorithms.mazeGenerators.Maze3dGenerator;
 import model.Model;
 import view.View;
 
@@ -19,4 +20,7 @@ public class MyController implements Controller {
 	public void notifyMazeIsReady(String name) {
 		v.notifyMazeIsReady(name);
 	}
+//	public Maze3dGenerator getMazeType() {
+//		return v.getMazeType();
+//	}
 }

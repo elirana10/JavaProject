@@ -26,7 +26,6 @@ public class Run {
 		model.setController(controller);
 		
 		view.start();
-
 	}
 
 }
