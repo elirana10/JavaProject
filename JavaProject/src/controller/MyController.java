@@ -20,7 +20,10 @@ public class MyController implements Controller {
 	public void notifyMazeIsReady(String name) {
 		v.notifyMazeIsReady(name);
 	}
-//	public Maze3dGenerator getMazeType() {
-//		return v.getMazeType();
-//	}
+
+	@Override
+	public void notifySolutionIsReady(String name) {
+		v.notifySolutionIsReady(name);
+		
+	}
 }

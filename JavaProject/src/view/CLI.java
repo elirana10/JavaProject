@@ -22,7 +22,7 @@ public class CLI {
 	private void printMenu() {
 		out.println("Menu:\nPlease choose a command: ");
 		for (String command : commands.keySet()) {
-			out.print(command + ",");
+			out.print(command + ", ");
 		}
 		out.println("\n>> ");
 		out.flush();
@@ -43,14 +43,14 @@ public class CLI {
 						String command = commandArr[0];
 
 						if (!commands.containsKey(command))
-							System.out.println("Command not found\n>> ");
+							System.out.print("Command not found\n>> ");
 
 						else {
 							Command cmd = commands.get(command);
 							String[] args = null;
 							
 							if (commandArr.length > 1) {
-								String commandArgs = commandLine.substring(command.indexOf(" ") + 1);
+								String commandArgs = commandLine.substring(commandLine.indexOf(" ") + 1);
 								args = commandArgs.split(" ");
 							}
 							cmd.doCommand(args);

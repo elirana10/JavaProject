@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 
 import algorithms.mazeGenerators.Maze3d;
+import algorithms.search.Solution;
 import controller.Command;
 import controller.Controller;
 
@@ -63,6 +64,18 @@ public class MyView implements View {
 	@Override
 	public void start() {
 		cli.start();
+	}
+
+	@Override
+	public void notifySolutionIsReady(String name) {
+		out.println("Solution for " + name + " is ready");
+		out.flush();
+	}
+
+	@Override
+	public void displaySolution(Solution name) {
+		out.println(name);
+		out.flush();
 	}
 
 }

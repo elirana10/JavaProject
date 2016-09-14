@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import algorithms.mazeGenerators.Maze3d;
+import algorithms.search.Solution;
 import io.MyCompressorOutputStream;
 import io.MyDecompressorInputStream;
 import model.Model;
@@ -100,6 +101,7 @@ public class CommandsManager {
 			try {
 				MyCompressorOutputStream mcos = new MyCompressorOutputStream(new FileOutputStream(file_name));
 				mcos.write(maze.toByteArray());
+				mcos.close();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -136,16 +138,38 @@ public class CommandsManager {
 		}
 	}
 	
-//	public class SolveMazeCommand implements Command {
-//
-//		@Override
-//		public void doCommand(String[] args) {
-//			String name = args[0];
-//			String algorithm = args[1];
-//			m.solveMaze(name,algorithm);
-//		}
-//		
-//	}
+	public class SolveMazeCommand implements Command {
+
+		@Override
+		public void doCommand(String[] args) {
+			String name = args[0];
+			String algorithm = args[1];
+			
+			m.solveMaze(name,algorithm);
+		}
+	}
+	
+	public class displaySolutionCommand implements Command {
+
+		@Override
+		public void doCommand(String[] args) {
+			String name = args[0];
+			Solution sol = m.getSolution(name);
+			
+			v.displaySolution(sol);
+		}
+		
+	}
+	
+	public class ExitProgram implements Command {
+
+		@Override
+		public void doCommand(String[] args) {
+			m.disposeAllThreads();
+			
+		}
+		
+	}
 	
 	public HashMap<String, Command> getCommandsMap() {
 		HashMap<String, Command> commands = new HashMap<String, Command>();
@@ -155,6 +179,9 @@ public class CommandsManager {
 		commands.put("display_cross_section", new displayCrossSection());
 		commands.put("save_maze", new saveMazeCommand());
 		commands.put("load_maze", new loadMazeCommand());
+		commands.put("solve", new SolveMazeCommand());
+		commands.put("display_solution", new displaySolutionCommand());
+		commands.put("exit", new ExitProgram());
 		
 		return commands;
 	}
