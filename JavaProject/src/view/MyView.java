@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.HashMap;
-
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.search.Solution;
 import controller.Command;
@@ -76,6 +75,13 @@ public class MyView implements View {
 	public void displaySolution(Solution name) {
 		out.println(name);
 		out.flush();
+	}
+
+	@Override
+	public void displayHelp(HashMap<String, String> commandDescription) {
+			for(String key: commandDescription.keySet())
+				out.println(key + " " + commandDescription.get(key));
+			out.flush();
 	}
 
 }

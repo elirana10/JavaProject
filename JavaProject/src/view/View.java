@@ -18,6 +18,8 @@ public interface View {
 	public void displayFile(File file);
 	void notifySolutionIsReady(String name);
 	void displaySolution(Solution name);
+	void displayHelp(HashMap<String, String> commandDescription);
 	void start();
+	
 	
 }

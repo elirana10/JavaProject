@@ -161,6 +161,15 @@ public class CommandsManager {
 		
 	}
 	
+	public class displayHelpCommand implements Command {
+
+		@Override
+		public void doCommand(String[] args) {
+			v.displayHelp(getCommandDescription());
+		}
+		
+	}
+	
 	public class ExitProgram implements Command {
 
 		@Override
@@ -181,9 +190,26 @@ public class CommandsManager {
 		commands.put("load_maze", new loadMazeCommand());
 		commands.put("solve", new SolveMazeCommand());
 		commands.put("display_solution", new displaySolutionCommand());
+		commands.put("help", new displayHelpCommand());
 		commands.put("exit", new ExitProgram());
 		
 		return commands;
+	}
+	
+	public HashMap<String,String> getCommandDescription() {
+		HashMap<String, String> description = new HashMap<String, String>();
+		description.put("dir", "<path> - View files and folders in given path");
+		description.put("generate_3d_maze", "<name> <floors> <rows> <cols> - generate 3d maze with values");
+		description.put("display", "<name> - display maze");
+		description.put("display_cross_section", "<name> <section> <index> - display cross section by X,Y,Z");
+		description.put("save_maze", "<name> <file_path> - save compressed maze to file");
+		description.put("load_maze", "<file_path> <name> - load decompressed maze from file");
+		description.put("solve", "<name> <algorithm> - solve maze using given Algorithm");
+		description.put("display_solution", "<name> - display solution for a maze");
+		description.put("help", "displays help menu");
+		description.put("exit", "- exists the program");
+		
+		return description;
 	}
 
 }

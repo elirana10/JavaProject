@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-
 import controller.Command;
 
 public class CLI {
@@ -24,7 +23,7 @@ public class CLI {
 		for (String command : commands.keySet()) {
 			out.print(command + ", ");
 		}
-		out.println("\n>> ");
+		out.print("\n>> ");
 		out.flush();
 	}
 	
@@ -43,7 +42,7 @@ public class CLI {
 						String command = commandArr[0];
 
 						if (!commands.containsKey(command))
-							System.out.print("Command not found\n>> ");
+							out.print("Command not found\n>> ");
 
 						else {
 							Command cmd = commands.get(command);
@@ -59,20 +58,11 @@ public class CLI {
 								break;
 							}
 						}
-						
-						
-						// OPT2: one of the words in the Line is the command
-//						for (String word : commandArr) {
-//							if (commands.containsKey(word)) {
-//								Command cmd = commands.get(word);
-//								cmd.doCommand();
-//								break;
-//							}
-//						}
 
 					} catch (IOException e) {
 						e.printStackTrace();
 					} 
+					out.print(">> ");
 				}
 			}
 		});
