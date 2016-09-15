@@ -48,7 +48,7 @@ public class MyView implements View {
 	public void display2dMaze(int[][] maze) {		
 			StringBuilder sb = new StringBuilder();
 			for (int x = 0; x < maze.length; x++) {
-				for (int y = 0; x < maze[0].length; y++) {
+				for (int y = 0; y < maze[0].length; y++) {
 						sb.append(maze[y][x]);
 				}
 				sb.append("\n");
