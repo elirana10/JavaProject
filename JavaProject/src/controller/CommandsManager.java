@@ -172,6 +172,7 @@ public class CommandsManager {
 		@Override
 		public void doCommand(String[] args) {
 			m.disposeAllThreads();
+			v.closeAllFiles();
 			
 		}
 		
@@ -195,16 +196,16 @@ public class CommandsManager {
 	
 	public HashMap<String,String> getCommandDescription() {
 		HashMap<String, String> description = new HashMap<String, String>();
-		description.put("dir", "<path> - View files and folders in given path");
-		description.put("generate_3d_maze", "<name> <floors> <rows> <cols> - generate 3d maze with values");
-		description.put("display", "<name> - display maze");
-		description.put("display_cross_section", "<name> <section> <index> - display cross section by X,Y,Z");
-		description.put("save_maze", "<name> <file_path> - save compressed maze to file");
-		description.put("load_maze", "<file_path> <name> - load decompressed maze from file");
-		description.put("solve", "<name> <algorithm> - solve maze using given Algorithm");
-		description.put("display_solution", "<name> - display solution for a maze");
-		description.put("help", "displays help menu");
-		description.put("exit", "- exists the program");
+		description.put("dir", "<path> \t\t\t\t\t\t- View files and folders in given path");
+		description.put("generate_3d_maze", "<name> <method> <floors> <rows> <cols>\t- generate 3d maze with values, where mothod  is 1-LastCell 2-RandomCell");
+		description.put("display", "<name>\t\t\t\t\t\t- display maze");
+		description.put("display_cross_section", "<name> <index> <section>\t\t- display cross section by X,Y,Z");
+		description.put("save_maze", "<name> <file_path>\t\t\t\t- save compressed maze to file");
+		description.put("load_maze", "<file_path> <name>\t\t\t\t- load decompressed maze from file");
+		description.put("solve", "<name> <algorithm>\t\t\t\t- solve maze using given Algorithm");
+		description.put("display_solution", "<name>\t\t\t\t\t- display solution for a maze");
+		description.put("help", "\t\t\t\t\t\t\t- displays help menu");
+		description.put("exit", "\t\t\t\t\t\t\t- exists the program");
 		
 		return description;
 	}

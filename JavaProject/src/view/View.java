@@ -19,6 +19,7 @@ public interface View {
 	void notifySolutionIsReady(String name);
 	void displaySolution(Solution name);
 	void displayHelp(HashMap<String, String> commandDescription);
+	public void closeAllFiles();
 	void start();
 	
 	

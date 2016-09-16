@@ -94,12 +94,12 @@ public class MyModel implements Model {
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
-			 
-			SearchableMaze3d searchable = new SearchableMaze3d(maze);	
+			 	
 		}
 		
 		@Override
 		public void run() {
+			SearchableMaze3d searchable = new SearchableMaze3d(maze);
 			Solution<Position> sol = algorithm.search(searchable);
 			solutionList.put(name, sol);
 			c.notifySolutionIsReady(name);

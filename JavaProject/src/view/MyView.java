@@ -2,6 +2,7 @@ package view;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import algorithms.mazeGenerators.Maze3d;
@@ -75,6 +76,16 @@ public class MyView implements View {
 	public void displaySolution(Solution name) {
 		out.println(name);
 		out.flush();
+	}
+	
+	public void closeAllFiles() {
+		this.out.close();
+		try {
+			this.in.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

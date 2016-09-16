@@ -12,5 +12,4 @@ public interface Model {
 	public Solution getSolution(String name);
 	public void addMazetoList(String name, Maze3d maze);
 	public void disposeAllThreads();
-	
 }
