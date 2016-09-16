@@ -4,35 +4,27 @@ package algorithms.mazeGenerators;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 public class GrowingTreeGenerator extends CommonGenerator {
 	private Random rand = new Random();
-	private Scanner in;
 	
 	public GrowingTreeGenerator() {
 	}
 
 	@Override
-	public Maze3d generate(int sizeX, int sizeY, int sizeZ) {
+	public Maze3d generate(int method ,int sizeX, int sizeY, int sizeZ) {
 		Maze3d maze = new Maze3d(sizeX, sizeY, sizeZ);
 		List<Position> cells = new ArrayList<Position>();
 		Init(maze); //Fill the maze with walls
-		Selectable UserSelect=null;		
+		Selectable UserSelect=null;	
+		if(method == 1)
+			UserSelect = new SelectLastNBR();
+		else if(method == 2)
+			UserSelect = new SelectRandNBR();
 		Position startPos = chooseRandomPosition(maze); //Choose a random start cell
 		maze.setStartPosition(startPos);
 		maze.setFree(startPos.getX(), startPos.getY(), startPos.getZ());
 		cells.add(startPos);
-		
-		System.out.println("Please enter select method:");
-		System.out.println("1. Select Last Neighbor");
-		System.out.println("2. Select Random Neighbor");
-		in = new Scanner(System.in);
-		int choice=in.nextInt();
-		if(choice == 1)
-			UserSelect = new SelectLastNBR();
-		else if(choice == 2)
-			UserSelect = new SelectRandNBR();
 
 		while (!cells.isEmpty()) { // TODO: Enable the user to choose the selection method
 			

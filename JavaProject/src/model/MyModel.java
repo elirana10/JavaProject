@@ -9,6 +9,7 @@ import algorithms.demo.SearchableMaze3d;
 import algorithms.mazeGenerators.GrowingTreeGenerator;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Maze3dGenerator;
+import algorithms.mazeGenerators.Position;
 import algorithms.search.BFS;
 import algorithms.search.DFS;
 import algorithms.search.Searcher;
@@ -19,19 +20,21 @@ public class MyModel implements Model {
 	private Controller c;
 	private List<Thread> threads = new ArrayList<Thread>();
 	private Map<String, Maze3d> mazeList = new HashMap<String,Maze3d>();
-	private Map<String,Solution> solutionList = new HashMap<String,Solution>();
+	private Map<String,Solution<Position>> solutionList = new HashMap<String,Solution<Position>>();
 	
 	class generateMazeRunnable implements Runnable {
 		
 		private String name;
+		private int method;
 		private int floors;
 		private int rows;
 		private int cols;
 		private Maze3dGenerator generator;
 		private Maze3d maze;
 		
-		public generateMazeRunnable(String name, int floors, int rows, int cols) {
+		public generateMazeRunnable(String name, int method, int floors, int rows, int cols) {
 			this.name = name;
+			this.method = method;
 			this.floors = floors;
 			this.rows = rows;
 			this.cols = cols;
@@ -41,7 +44,7 @@ public class MyModel implements Model {
 		
 		@Override
 		public void run() {
-			this.maze = generator.generate(floors, rows, cols);
+			this.maze = generator.generate(method, floors, rows, cols);
 			mazeList.put(name, maze);
 			c.notifyMazeIsReady(name);
 		}
@@ -55,8 +58,8 @@ public class MyModel implements Model {
 	}
 
 	@Override
-	public synchronized void generateMaze(String name, int floors, int rows, int cols) {
-		generateMazeRunnable mazeRunnableGenerator = new generateMazeRunnable(name, floors, rows, cols);
+	public synchronized void generateMaze(String name, int method, int floors, int rows, int cols) {
+		generateMazeRunnable mazeRunnableGenerator = new generateMazeRunnable(name, method, floors, rows, cols);
 		Thread t = new Thread(mazeRunnableGenerator);
 		t.start();
 		threads.add(t);
@@ -69,17 +72,17 @@ public class MyModel implements Model {
 		threads.add(t);
 	}
 
-	public HashMap<String, Searcher> getAlgorithms() {
-		HashMap<String, Searcher> algorithms = new HashMap<>();
-		algorithms.put("BFS", new BFS());
-		algorithms.put("DFS", new DFS());
+	public HashMap<String, Searcher<Position>> getAlgorithms() {
+		HashMap<String, Searcher<Position>> algorithms = new HashMap<>();
+		algorithms.put("BFS", new BFS<Position>());
+		algorithms.put("DFS", new DFS<Position>());
 		
 		return algorithms;
 	}
 	
 	class solveMazeRunnable implements Runnable {
 		private String name;
-		private Searcher algorithm;
+		private Searcher<Position> algorithm;
 		SearchableMaze3d searchable;
 		private Maze3d maze;
 		
@@ -97,7 +100,7 @@ public class MyModel implements Model {
 		
 		@Override
 		public void run() {
-			Solution sol = algorithm.search(searchable);
+			Solution<Position> sol = algorithm.search(searchable);
 			solutionList.put(name, sol);
 			c.notifySolutionIsReady(name);
 		}
@@ -107,7 +110,7 @@ public class MyModel implements Model {
 	public Maze3d getMaze(String name) {
 		return this.mazeList.get(name);
 	}
-	public Solution getSolution(String name) {
+	public Solution<Position> getSolution(String name) {
 		return this.solutionList.get(name);
 	}
 	

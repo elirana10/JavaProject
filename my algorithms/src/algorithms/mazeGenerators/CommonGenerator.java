@@ -6,12 +6,12 @@ public abstract class CommonGenerator implements Maze3dGenerator {
 	}
 
 	@Override
-	public abstract Maze3d generate(int sizeX, int sizeY, int sizeZ);
+	public abstract Maze3d generate(int method, int sizeX, int sizeY, int sizeZ);
 
 	@Override
-	public String measureAlgorithmTime(int sizeX, int sizeY, int sizeZ) {
+	public String measureAlgorithmTime(int method, int sizeX, int sizeY, int sizeZ) {
 		long bTime = System.currentTimeMillis();
-		this.generate(sizeX, sizeY, sizeZ);
+		this.generate(method, sizeX, sizeY, sizeZ);
 		long aTime = System.currentTimeMillis();
 		long fTime = aTime-bTime;
 		

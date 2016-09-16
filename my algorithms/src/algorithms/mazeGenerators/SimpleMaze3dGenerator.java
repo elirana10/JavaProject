@@ -23,7 +23,7 @@ public class SimpleMaze3dGenerator extends CommonGenerator {
 	}
 
 	@Override
-	public Maze3d generate(int sizeX, int sizeY, int sizeZ) {
+	public Maze3d generate(int method, int sizeX, int sizeY, int sizeZ) {
 		Maze3d maze = new Maze3d(sizeX, sizeY, sizeZ);
 		
 		int wallsNum = (int)(WALLS_RATIO * sizeY * sizeZ);

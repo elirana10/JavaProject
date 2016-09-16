@@ -18,7 +18,7 @@ public class CompressTest {
 	public static void main(String[] args) {
 		// Create Maze
 		Maze3dGenerator gn = new GrowingTreeGenerator();
-		Maze3d maze = gn.generate(2,6,6);
+		Maze3d maze = gn.generate(2,2,6,6);
 //		byte[] bArr = maze.toByteArray();
 		
 		// save it to a file

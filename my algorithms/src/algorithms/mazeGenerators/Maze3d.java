@@ -20,7 +20,7 @@ public class Maze3d {
 	}
 
 	public Maze3d(byte[] byteArr) {
-		int i = 0;
+		int i = 1;
 		//Set the start and goal position
 		this.setStartPosition(new Position(byteArr[i++],byteArr[i++],byteArr[i++]));
 		this.setGoalPosition(new Position(byteArr[i++],byteArr[i++],byteArr[i++]));		
@@ -202,9 +202,10 @@ public class Maze3d {
 			}
 		}
 		//Copy the ArrayList to the byte array
-		byte[] byteArr = new byte[bArrLST.size()];
-		for (int i = 0; i < byteArr.length; i++) {
-			byteArr[i] = bArrLST.get(i);
+		byte[] byteArr = new byte[bArrLST.size()+1];
+		byteArr[0] = (byte)bArrLST.size();
+		for (int i = 1; i < byteArr.length; i++) {
+			byteArr[i] = bArrLST.get(i-1);
 		}
 		return byteArr;
 	}

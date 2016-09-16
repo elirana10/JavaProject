@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import algorithms.mazeGenerators.Maze3d;
+import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 import io.MyCompressorOutputStream;
 import io.MyDecompressorInputStream;
@@ -29,10 +30,11 @@ public class CommandsManager {
 		@Override
 		public void doCommand(String[] args) {
 			String name = args[0];
-			int floors = Integer.parseInt(args[1]);
-			int rows = Integer.parseInt(args[2]);
-			int cols = Integer.parseInt(args[3]);
-			m.generateMaze(name, floors, rows, cols);
+			int method = Integer.parseInt(args[1]);
+			int floors = Integer.parseInt(args[2]);
+			int rows = Integer.parseInt(args[3]);
+			int cols = Integer.parseInt(args[4]);
+			m.generateMaze(name, method, floors, rows, cols);
 		}		
 	}
 	
@@ -124,12 +126,12 @@ public class CommandsManager {
 				mdis.close();
 				
 				Maze3d loaded = new Maze3d(b);
-				int floors, rows, cols;
+				int method, floors, rows, cols;
 				floors = loaded.getFloors();
 				rows = loaded.getRows();
 				cols = loaded.getCols();
 				
-				m.generateMaze(name, floors, rows, cols);
+				m.generateMaze(name, method, floors, rows, cols);
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
@@ -154,7 +156,7 @@ public class CommandsManager {
 		@Override
 		public void doCommand(String[] args) {
 			String name = args[0];
-			Solution sol = m.getSolution(name);
+			Solution<Position> sol = m.getSolution(name);
 			
 			v.displaySolution(sol);
 		}
