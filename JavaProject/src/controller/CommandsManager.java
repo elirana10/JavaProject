@@ -1,3 +1,11 @@
+/**
+* CommandsManager includes all the user commands for Maze3d which runs from the CLI.
+*   
+* @author  Eliran Amar & Yoni Kfir
+* @version 1.0
+* @since   2016-13-09 
+*/
+
 package controller;
 
 import java.io.File;

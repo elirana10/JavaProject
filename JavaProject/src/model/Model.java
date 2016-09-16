@@ -1,3 +1,11 @@
+/**
+* The model interface represents an object or JAVA POJO carrying data. It can also have logic to update controller if its data changes.
+*   
+* @author  Eliran Amar & Yoni Kfir
+* @version 1.0
+* @since   2016-13-09 
+*/
+
 package model;
 
 import algorithms.mazeGenerators.Maze3d;

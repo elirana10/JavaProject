@@ -1,3 +1,12 @@
+/**
+* The Run class includes the main method which creates the MVC
+* 
+* @author  Eliran Amar
+* @version 1.0
+* @since   2016-08-27 
+*/
+
+
 package boot;
 
 import java.io.BufferedReader;

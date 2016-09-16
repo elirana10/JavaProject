@@ -1,3 +1,11 @@
+/**
+* MyController class implements the controller interface for Maze3d.
+*   
+* @author  Eliran Amar & Yoni Kfir
+* @version 1.0
+* @since   2016-13-09 
+*/
+
 package controller;
 
 import algorithms.mazeGenerators.Maze3dGenerator;
