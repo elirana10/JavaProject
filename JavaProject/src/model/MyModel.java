@@ -45,7 +45,7 @@ public class MyModel implements Model {
 		@Override
 		public void run() {
 			this.maze = generator.generate(method, floors, rows, cols);
-			mazeList.put(name, maze);
+			addMazetoList(name, maze);
 			c.notifyMazeIsReady(name);
 		}
 	}
@@ -110,6 +110,11 @@ public class MyModel implements Model {
 	public Maze3d getMaze(String name) {
 		return this.mazeList.get(name);
 	}
+	
+	public void addMazetoList(String name, Maze3d maze) {
+		this.mazeList.put(name, maze);
+	}
+	
 	public Solution<Position> getSolution(String name) {
 		return this.solutionList.get(name);
 	}
