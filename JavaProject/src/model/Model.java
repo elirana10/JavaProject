@@ -10,6 +10,7 @@ public interface Model {
 	void solveMaze(String name, String Algorithm);
 	Maze3d getMaze(String name);
 	public Solution getSolution(String name);
+	public void addMazetoList(String name, Maze3d maze);
 	public void disposeAllThreads();
 	
 }

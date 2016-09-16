@@ -121,17 +121,12 @@ public class CommandsManager {
 			
 			try {
 				MyDecompressorInputStream mdis = new MyDecompressorInputStream(new FileInputStream(new File(file_name)));
-				byte b[] = new byte[length];
+				byte b[] = new byte[mdis.read()];
 				mdis.read(b);
 				mdis.close();
 				
 				Maze3d loaded = new Maze3d(b);
-				int method, floors, rows, cols;
-				floors = loaded.getFloors();
-				rows = loaded.getRows();
-				cols = loaded.getCols();
-				
-				m.generateMaze(name, method, floors, rows, cols);
+				m.addMazetoList(name, loaded);
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
