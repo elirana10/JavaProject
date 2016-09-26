@@ -8,7 +8,7 @@ public class ProperiesLoader {
 	private static ProperiesLoader instance;
 	private Properties properties;
 	
-	public ProperiesLoader() {
+	private ProperiesLoader() {
 		XMLDecoder xml = null;
 
 			try {

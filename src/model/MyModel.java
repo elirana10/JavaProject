@@ -17,10 +17,12 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 import algorithms.demo.SearchableMaze3d;
+import algorithms.mazeGenerators.CommonGenerator;
 import algorithms.mazeGenerators.GrowingTreeGenerator;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Maze3dGenerator;
 import algorithms.mazeGenerators.Position;
+import algorithms.mazeGenerators.SimpleMaze3dGenerator;
 import algorithms.search.BFS;
 import algorithms.search.DFS;
 import algorithms.search.Searcher;
@@ -49,14 +51,13 @@ public class MyModel extends Observable implements Model {
 
 	@Override
 	public void generateMaze(String name, int method, int floors, int rows, int cols) {
-//		generateMazeRunnable mazeRunnableGenerator = new generateMazeRunnable(name, method, floors, rows, cols);
 		
 		executor.submit(new Callable<Maze3d>() {
 
 			@Override
 			public Maze3d call() throws Exception {
-				GrowingTreeGenerator gen = new GrowingTreeGenerator();
-				Maze3d maze = gen.generate(method, floors, rows, cols);
+				CommonGenerator generator = getGenerator();
+				Maze3d maze = generator.generate(method, floors, rows, cols);
 				mazeList.put(name, maze);
 				setChanged();
 				notifyObservers("Maze " + name + " is ready");
@@ -64,9 +65,16 @@ public class MyModel extends Observable implements Model {
 			}
 		});
 	}
+	
+	public CommonGenerator getGenerator() {
+		if (properties.getAlgorithm_Generate().equals("GrowingTree"))
+			return new GrowingTreeGenerator();
+		else if (properties.getAlgorithm_Generate().equals("SimpleMaze"))
+			return new SimpleMaze3dGenerator();
+		return null;
+	}
 
-	public void solveMaze(String name, String algorithm) {
-//		solveMazeRunnable solveMazeRunnable = new solveMazeRunnable(name, algorithm);
+	public void solveMaze(String name) {
 		if (solutionList.containsKey(name)) {
 			setChanged();
 			notifyObservers("Solution for " + name + " is ready (no computing required :)");
@@ -77,7 +85,8 @@ public class MyModel extends Observable implements Model {
 			public Solution<Position> call() throws Exception {
 				Maze3d maze = mazeList.get(name);
 				SearchableMaze3d searchable = new SearchableMaze3d(maze);
-				Searcher<Position> alg = getAlgorithms().get(algorithm);
+				Searcher<Position> alg = getSearcher();
+				
 				Solution<Position> sol = alg.search(searchable);
 				solutionList.put(name, sol);
 				solutionCache.put(maze, sol);
@@ -88,13 +97,13 @@ public class MyModel extends Observable implements Model {
 		});
 		}
 	}
-
-	public HashMap<String, Searcher<Position>> getAlgorithms() {
-		HashMap<String, Searcher<Position>> algorithms = new HashMap<>();
-		algorithms.put("BFS", new BFS<Position>());
-		algorithms.put("DFS", new DFS<Position>());
-		
-		return algorithms;
+	
+	public Searcher<Position> getSearcher() {
+		if (properties.getAlgorithm_Solve().equals("BFS"))
+			return new BFS<Position>();
+		else if (properties.getAlgorithm_Solve().equals("DFS"))
+			return new DFS<Position>();
+		return null;
 	}
 	
 	@Override
@@ -142,7 +151,7 @@ public class MyModel extends Observable implements Model {
 		try {
 		    oos = new ObjectOutputStream(new GZIPOutputStream(new FileOutputStream("mySolutions.dat")));
 			oos.writeObject(mazeList);
-			oos.writeObject(solutionList);			
+			oos.writeObject(solutionCache);			
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

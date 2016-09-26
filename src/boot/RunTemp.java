@@ -11,7 +11,7 @@ public class RunTemp {
 	public static void main(String[] args) {
 		Properties p = new Properties();
 		p.setNumOfThreads(10);
-		p.setAlgorithm_Generate("GrowingTreeAlgorithm");
+		p.setAlgorithm_Generate("GrowingTree");
 		p.setAlgorithm_Solve("BFS");
 		
 		XMLEncoder xml = null;

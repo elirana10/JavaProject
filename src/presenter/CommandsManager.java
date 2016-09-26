@@ -146,9 +146,8 @@ public class CommandsManager {
 		@Override
 		public void doCommand(String[] args) {
 			String name = args[0];
-			String algorithm = args[1];
 			
-			m.solveMaze(name,algorithm);
+			m.solveMaze(name);
 		}
 	}
 	
@@ -208,7 +207,7 @@ public class CommandsManager {
 		description.put("display_cross_section", "<name> <index> <section>\t\t- display cross section by X,Y,Z");
 		description.put("save_maze", "<name> <file_path>\t\t\t\t- save compressed maze to file");
 		description.put("load_maze", "<file_path> <name>\t\t\t\t- load decompressed maze from file");
-		description.put("solve", "<name> <algorithm>\t\t\t\t- solve maze using given Algorithm");
+		description.put("solve", "<name>\t\t\t\t\t\t- solve maze using Algorithm from properties");
 		description.put("display_solution", "<name>\t\t\t\t\t- display solution for a maze");
 		description.put("help", "\t\t\t\t\t\t\t- displays help menu");
 		description.put("exit", "\t\t\t\t\t\t\t- exists the program");
