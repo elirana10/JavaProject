@@ -24,6 +24,7 @@ public class MazeDisplay extends Canvas {
 
 				   int width=getSize().x;
 				   int height=getSize().y;
+				   
 
 				   int w=width/mazeData[0].length;
 				   int h=height/mazeData.length;
