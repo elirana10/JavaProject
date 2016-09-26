@@ -25,6 +25,8 @@ import algorithms.search.BFS;
 import algorithms.search.DFS;
 import algorithms.search.Searcher;
 import algorithms.search.Solution;
+import presenter.ProperiesLoader;
+import presenter.Properties;
 /**
 * MyModel class implements the controller interface for Maze3d.
 *   
@@ -32,14 +34,16 @@ import algorithms.search.Solution;
 * @version 1.0
 * @since   2016-13-09 
 */
-public class MyModel extends Observable implements Model {//,Observer {
+public class MyModel extends Observable implements Model {
 	private ExecutorService executor;
 	private Map<String, Maze3d> mazeList = new HashMap<String,Maze3d>();
 	private Map<String,Solution<Position>> solutionList = new HashMap<String,Solution<Position>>();
 	private Map<Maze3d,Solution<Position>> solutionCache = new HashMap<Maze3d,Solution<Position>>();
+	private Properties properties;
 	
 	public MyModel() {
-		this.executor = Executors.newFixedThreadPool(3);
+		this.properties = ProperiesLoader.getInstance().getProperties();
+		this.executor = Executors.newFixedThreadPool(properties.getNumOfThreads());
 		loadSolutions();
 	}
 
