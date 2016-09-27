@@ -29,6 +29,7 @@ import algorithms.search.Searcher;
 import algorithms.search.Solution;
 import presenter.ProperiesLoader;
 import presenter.Properties;
+import view.MazeWindow;
 /**
 * MyModel class implements the controller interface for Maze3d.
 *   
@@ -36,6 +37,7 @@ import presenter.Properties;
 * @version 1.0
 * @since   2016-13-09 
 */
+import view.MyView;
 public class MyModel extends Observable implements Model {
 	private ExecutorService executor;
 	private Map<String, Maze3d> mazeList = new HashMap<String,Maze3d>();
@@ -169,6 +171,10 @@ public class MyModel extends Observable implements Model {
 	public void exit() {
 		executor.shutdownNow();
 		saveSolutions();
+	}
+	
+	public String getInterface() {
+		return this.properties.getInterface_mode();
 	}
 
 //	@Override

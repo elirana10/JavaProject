@@ -13,6 +13,7 @@ public class RunTemp {
 		p.setNumOfThreads(10);
 		p.setAlgorithm_Generate("GrowingTree");
 		p.setAlgorithm_Solve("BFS");
+		p.setInterface_mode("GUI");
 		
 		XMLEncoder xml = null;
 		try {

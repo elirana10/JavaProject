@@ -2,10 +2,13 @@
 <java version="1.8.0_102" class="java.beans.XMLDecoder">
  <object class="presenter.Properties">
   <void property="algorithm_Generate">
-   <string>GrowingTreeAlgorithm</string>
+   <string>GrowingTree</string>
   </void>
   <void property="algorithm_Solve">
    <string>BFS</string>
+  </void>
+  <void property="interface_mode">
+   <string>GUI</string>
   </void>
   <void property="numOfThreads">
    <int>10</int>

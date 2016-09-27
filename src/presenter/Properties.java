@@ -11,7 +11,8 @@ public class Properties implements Serializable {
 	private int numOfThreads;
 	private String algorithm_Solve;
 	private String  algorithm_Generate;
-	
+	private String interface_mode;
+
 	public Properties() {}
 
 	public int getNumOfThreads() {
@@ -36,5 +37,13 @@ public class Properties implements Serializable {
 
 	public void setAlgorithm_Generate(String algorithm_Generate) {
 		this.algorithm_Generate = algorithm_Generate;
-	};
+	}
+	
+	public String getInterface_mode() {
+		return interface_mode;
+	}
+
+	public void setInterface_mode(String interface_mode) {
+		this.interface_mode = interface_mode;
+	}
 }
