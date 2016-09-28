@@ -13,11 +13,11 @@ public class ProperiesLoader {
 		XMLDecoder xml = null;
 
 			try {
-				xml = new XMLDecoder(new FileInputStream("properties.xml"));
+//				xml = new XMLDecoder(new FileInputStream("properties.xml"));
+				xml = new XMLDecoder(getClass().getClassLoader().getResourceAsStream("properties.xml"));
 				properties = (Properties)xml.readObject();
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//catch (FileNotFoundException e) {
+//				e.printStackTrace();
 			} finally {
 				xml.close();
 			}
