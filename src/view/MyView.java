@@ -11,6 +11,7 @@ import java.util.Observer;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.search.Solution;
 import presenter.Command;
+import presenter.Properties;
 /**
 * MyView class implements the controller interface for Maze3d.
 *   

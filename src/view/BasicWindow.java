@@ -9,7 +9,7 @@ public abstract class BasicWindow extends Observable implements Runnable {
 	protected Display display;
 	protected Shell shell;
 	
-	public abstract void InitWidgets();
+	protected abstract void InitWidgets();
 
 	@Override
 	public void run() {

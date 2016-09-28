@@ -168,6 +168,11 @@ public class MyModel extends Observable implements Model {
 		}
 	}
 	
+	public void loadProperties(File f) {
+		properties = new ProperiesLoader(f).getProperties();
+		System.out.println("Done");
+	}
+	
 	public void exit() {
 		executor.shutdownNow();
 		saveSolutions();
@@ -176,11 +181,5 @@ public class MyModel extends Observable implements Model {
 	public String getInterface() {
 		return this.properties.getInterface_mode();
 	}
-
-//	@Override
-//	public void update(Observable arg0, Object arg1) {
-//		// TODO Auto-generated method stub
-//		
-//	}
 	
 }
