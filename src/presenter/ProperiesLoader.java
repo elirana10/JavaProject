@@ -13,10 +13,13 @@ public class ProperiesLoader {
 		XMLDecoder xml = null;
 
 			try {
-//				xml = new XMLDecoder(new FileInputStream("properties.xml"));
-				xml = new XMLDecoder(getClass().getClassLoader().getResourceAsStream("properties.xml"));
+				xml = new XMLDecoder(new FileInputStream("properties.xml"));
+//				xml = new XMLDecoder(getClass().getClassLoader().getResourceAsStream("/JavaProject_D/properties.xml"));
+				
 				properties = (Properties)xml.readObject();
-			//catch (FileNotFoundException e) {
+//			} catch (FileNotFoundException e) {
+			} catch (Exception e) {
+				e.printStackTrace(System.out);
 //				e.printStackTrace();
 			} finally {
 				xml.close();
