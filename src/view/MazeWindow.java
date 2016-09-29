@@ -230,8 +230,9 @@ public class MazeWindow extends BasicWindow implements View {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				setChanged();
-				notifyObservers("generate_3d_maze " + txtName.getText() + " " + Integer.parseInt(txtMethod.getText()) + " "
-						+ Integer.parseInt(txtFloors.getText()) + " " + Integer.parseInt(txtRows.getText()) + " " + Integer.parseInt(txtCols.getText()));
+				notifyObservers("generate_3d_maze " + txtName.getText() + " " + Integer.parseInt(txtMethod.getText()) + " " + 
+							Integer.parseInt(txtRows.getText()) + " " + Integer.parseInt(txtCols.getText()) + " " +
+							Integer.parseInt(txtFloors.getText()));
 				MessageBox msg = new MessageBox(shell);
 				msg.setMessage("Generating maze...");
 				msg.open();
