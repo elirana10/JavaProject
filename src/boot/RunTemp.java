@@ -18,6 +18,7 @@ public class RunTemp {
 		XMLEncoder xml = null;
 		try {
 			xml = new XMLEncoder(new FileOutputStream("properties.xml"));
+//			xml = new XMLEncoder(getClass().getClassLoader().getResourceAsStream("properties.xml"));
 			xml.writeObject(p);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

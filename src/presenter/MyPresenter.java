@@ -30,7 +30,7 @@ public class MyPresenter implements Presenter,Observer {
 
 	@Override
 	public void update(Observable o, Object arg1) {
-			if ((o == v)&&(arg1.getClass().getName().equals("String"))) {
+			if ((o == v)) {
 				String commandLine = (String) arg1;
 				String[] commandArr = commandLine.split(" ");
 				String command = commandArr[0];
@@ -53,20 +53,9 @@ public class MyPresenter implements Presenter,Observer {
 				v.displayMSG((String)arg1);
 			}
 	
-			if ((o.getClass().getName().equals("view.MazeWindow") && (arg1.getClass().getSimpleName().equals("File")))) {
+			if ((arg1.getClass().getSimpleName().equals("File"))) {
 				m.loadProperties((File)arg1);
 				
-			}
-			if (o.getClass().getSimpleName().equals("GenerateMazeWindow")) {
-				String cmd = (String)arg1;
-				String[] cmdArr = cmd.split(" ");
-				String name = cmdArr[1];
-				int method = Integer.parseInt(cmdArr[2]);
-				int floors = Integer.parseInt(cmdArr[3]);
-				int rows = Integer.parseInt(cmdArr[4]);
-				int cols = Integer.parseInt(cmdArr[5]);
-
-				m.generateMaze(name, method, floors, rows, cols);
 			}
 	}
 }

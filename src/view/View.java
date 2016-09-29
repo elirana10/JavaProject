@@ -24,6 +24,5 @@ public interface View {
 	void displayMSG(String msg);
 	void closeAllFiles();
 	void start();
-	
-	
+		
 }

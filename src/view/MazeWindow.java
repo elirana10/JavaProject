@@ -2,6 +2,8 @@ package view;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Observable;
+import java.util.Observer;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -12,9 +14,13 @@ import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
+
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.search.Solution;
 
@@ -89,12 +95,10 @@ public class MazeWindow extends BasicWindow implements View {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				showGenerateMazeOption();
-				
 			}
 			
 			@Override
 			public void widgetDefaultSelected(SelectionEvent arg0) {
-				// TODO Auto-generated method stub
 				
 			}
 		});
@@ -120,11 +124,10 @@ public class MazeWindow extends BasicWindow implements View {
 		btnDisplayMaze.setText("Display Maze");
 		
 		btnDisplayMaze.addSelectionListener(new SelectionListener() {
-			
+			// TODO
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				DisplayMazeWindow win = new DisplayMazeWindow(mazeDisplay);
-				win.start(display);
+				showDisplayWindow();
 			}
 			
 			@Override
@@ -139,14 +142,117 @@ public class MazeWindow extends BasicWindow implements View {
 		this.mazeDisplay.setFocus();
 	}
 
+	protected void showDisplayWindow() {
+		Shell shellMazeDisplayWindow = new Shell(display);
+		shellMazeDisplayWindow.setLayoutData(new GridData(SWT.LEFT, SWT.FILL, false, false));
+		shellMazeDisplayWindow.setText("Display Maze");
+		shellMazeDisplayWindow.setSize(300, 200);
+		
+		shellMazeDisplayWindow.setLayout(new GridLayout(2, false));
+		
+		Label lblName = new Label(shellMazeDisplayWindow, SWT.NONE);
+		lblName.setText("Name: ");
+		
+		Text txtName = new Text(shellMazeDisplayWindow, SWT.NONE);
+		txtName.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		
+		Button displayBtn = new Button(shellMazeDisplayWindow, SWT.PUSH);
+		displayBtn.setText("Display");
+		displayBtn.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
+		displayBtn.addSelectionListener(new SelectionListener() {
+		
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				MessageBox msg = new MessageBox(shellMazeDisplayWindow,SWT.OK);
+				msg.setMessage("Displaying " + txtName.getText() + " maze");
+				msg.open();
+				
+				setChanged();
+				notifyObservers("display " + txtName.getText());
+			
+
+				shellMazeDisplayWindow.close();
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		shellMazeDisplayWindow.open();
+	}
+
 	protected void showGenerateMazeOption() {
-		GenerateMazeWindow win = new GenerateMazeWindow();
-		win.start(display);
+		Shell generateMazeShell = new Shell(display);
+		generateMazeShell.setText("Generate Maze Window");
+		generateMazeShell.setSize(300, 200);
+		
+		generateMazeShell.setLayout(new GridLayout(2, false));
+		
+		Label lblName = new Label(generateMazeShell, SWT.NONE);
+		lblName.setText("Name: ");
+		
+		Text txtName = new Text(generateMazeShell, SWT.BORDER);
+		txtName.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		
+		Label lblMethod = new Label(generateMazeShell, SWT.NONE);
+		lblMethod.setText("Method: ");
+		
+		Text txtMethod = new Text(generateMazeShell, SWT.BORDER);
+		txtMethod.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		
+		Label lblFloors = new Label(generateMazeShell, SWT.NONE);
+		lblFloors.setText("Floors: ");
+		
+		Text txtFloors = new Text(generateMazeShell, SWT.BORDER);
+		txtFloors.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		
+		Label lblRows = new Label(generateMazeShell, SWT.NONE);
+		lblRows.setText("Rows: ");
+		
+		Text txtRows = new Text(generateMazeShell, SWT.BORDER);
+		txtRows.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		
+		Label lblCols = new Label(generateMazeShell, SWT.NONE);
+		lblCols.setText("Cols: ");
+		
+		Text txtCols = new Text(generateMazeShell, SWT.BORDER);
+		txtCols.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		
+		Button generateMazeBtn = new Button(generateMazeShell, SWT.PUSH);
+		generateMazeBtn.setText("Generate!");
+		generateMazeShell.setDefaultButton(generateMazeBtn);
+		generateMazeBtn.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false, 2, 1));
+		
+		generateMazeBtn.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				setChanged();
+				notifyObservers("generate_3d_maze " + txtName.getText() + " " + Integer.parseInt(txtMethod.getText()) + " "
+						+ Integer.parseInt(txtFloors.getText()) + " " + Integer.parseInt(txtRows.getText()) + " " + Integer.parseInt(txtCols.getText()));
+				MessageBox msg = new MessageBox(shell);
+				msg.setMessage("Generating maze...");
+				msg.open();
+				
+				generateMazeShell.close();
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		generateMazeShell.open();
 	}
 
 	@Override
 	public void displayMaze(Maze3d maze) {
-		
+		int[][] maze2d = maze.getCrossSectionByZ(0);
+		mazeDisplay.setMazeData(maze2d);
+		mazeDisplay.redraw();
 	}
 
 	@Override
