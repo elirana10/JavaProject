@@ -62,6 +62,6 @@ public class MyPresenter implements Presenter,Observer {
 				m.loadProperties((File)arg1);
 				
 			}
-			System.out.println(arg1.getClass().getName());
+			
 	}
 }
