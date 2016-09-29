@@ -50,7 +50,10 @@ public class CommandsManager {
 		public void doCommand(String[] args) {
 			String name = args[0];
 			Maze3d maze = m.getMaze(name);
-			v.displayMaze(maze);
+			if (maze!=null)
+				v.displayMaze(maze);
+			else
+				v.displayMSG("No such maze");
 		}	
 	}
 	
@@ -172,6 +175,15 @@ public class CommandsManager {
 		
 	}
 	
+	public class notifyReadyCommand implements Command {
+
+		@Override
+		public void doCommand(String[] args) {
+			v.displayMaze(m.getMaze(args[0]));
+		}
+		
+	}
+	
 	public class ExitProgram implements Command {
 
 		@Override
@@ -193,6 +205,7 @@ public class CommandsManager {
 		commands.put("load_maze", new loadMazeCommand());
 		commands.put("solve", new SolveMazeCommand());
 		commands.put("display_solution", new displaySolutionCommand());
+		commands.put("notify_ready", new notifyReadyCommand());
 		commands.put("help", new displayHelpCommand());
 		commands.put("exit", new ExitProgram());
 		

@@ -1,9 +1,13 @@
 package view;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -22,7 +26,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import algorithms.mazeGenerators.Maze3d;
+import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
+import algorithms.search.State;
 
 public class MazeWindow extends BasicWindow implements View {
 	private MazeDisplay mazeDisplay;
@@ -110,7 +116,8 @@ public class MazeWindow extends BasicWindow implements View {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				
+//				setChanged();
+//				notifyObservers("solve " + mazeDisplay.getName());
 			}
 			
 			@Override
@@ -169,7 +176,7 @@ public class MazeWindow extends BasicWindow implements View {
 				
 				setChanged();
 				notifyObservers("display " + txtName.getText());
-			
+				mazeDisplay.setName(txtName.getText());
 
 				shellMazeDisplayWindow.close();
 			}
@@ -269,8 +276,39 @@ public class MazeWindow extends BasicWindow implements View {
 
 	@Override
 	public void displaySolution(Solution name) {
-		// TODO Auto-generated method stub
+		List<State<Position>> states = name.getStates();
+		Timer t = new Timer();
 		
+		for (int i = 0; i < states.size(); i++) {
+			if (getDirectionToMove(states.get(i),states.get(i+1)).equals("RIGHT")) {
+				character.moveRight();
+				mazeDisplay.redraw();
+			}
+			else if (getDirectionToMove(states.get(i),states.get(i+1)).equals("LEFT")) {
+				character.moveLeft();
+				mazeDisplay.redraw();
+			}
+			else if (getDirectionToMove(states.get(i),states.get(i+1)).equals("UP")) {
+				character.moveUp();
+				mazeDisplay.redraw();
+			}
+			else if (getDirectionToMove(states.get(i),states.get(i+1)).equals("DOWN")) {
+				character.moveDown();
+				mazeDisplay.redraw();
+			}
+		}
+	}
+
+	protected String getDirectionToMove(State<Position> pos1, State<Position> pos2) {
+		if (pos2.getValue().getX()>pos1.getValue().getX())
+			return "RIGHT";
+		else if (pos2.getValue().getX()<pos1.getValue().getX())
+			return "LEFT";
+		else if (pos2.getValue().getY()>pos1.getValue().getY())
+			return "UP";
+		else if (pos2.getValue().getY()<pos1.getValue().getY())
+			return "DOWN";
+		return null;
 	}
 
 	@Override

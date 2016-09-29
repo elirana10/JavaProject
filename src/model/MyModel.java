@@ -80,6 +80,8 @@ public class MyModel extends Observable implements Model {
 		if (solutionList.containsKey(name)) {
 			setChanged();
 			notifyObservers("Solution for " + name + " is ready (no computing required :)");
+			setChanged();
+			notifyObservers(solutionList.get(name));
 		} else {
 		executor.submit(new Callable<Solution<Position>>() {
 
@@ -93,7 +95,7 @@ public class MyModel extends Observable implements Model {
 				solutionList.put(name, sol);
 				solutionCache.put(maze, sol);
 				setChanged();
-				notifyObservers("Solution for " + name + " is ready");
+				notifyObservers(sol);
 				return sol;
 			}
 		});

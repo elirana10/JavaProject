@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
+import algorithms.search.Solution;
 import model.Model;
 import view.View;
 /**
@@ -48,14 +49,19 @@ public class MyPresenter implements Presenter,Observer {
 					cmd.doCommand(args);
 				} 
 			}
-			if (o == m) {
+			if ((o == m)&&(arg1.getClass().getSimpleName().equals("String"))) {
 				String msg = (String)arg1;
 				v.displayMSG((String)arg1);
+			}
+			
+ 			if ((o==m)&&(arg1.getClass().getSimpleName().equals("Solution"))) {
+				v.displaySolution((Solution)arg1);
 			}
 	
 			if ((arg1.getClass().getSimpleName().equals("File"))) {
 				m.loadProperties((File)arg1);
 				
 			}
+			System.out.println(arg1.getClass().getName());
 	}
 }
