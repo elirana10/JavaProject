@@ -172,7 +172,6 @@ public class MyModel extends Observable implements Model {
 	
 	public void loadProperties(File f) {
 		properties = new ProperiesLoader(f).getProperties();
-		System.out.println("Done");
 	}
 	
 	public void exit() {

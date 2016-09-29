@@ -31,7 +31,7 @@ public class MyPresenter implements Presenter,Observer {
 
 	@Override
 	public void update(Observable o, Object arg1) {
-			if ((o == v)) {
+			if ((o == v)&&(!arg1.getClass().getSimpleName().equals("File"))) {
 				String commandLine = (String) arg1;
 				String[] commandArr = commandLine.split(" ");
 				String command = commandArr[0];
