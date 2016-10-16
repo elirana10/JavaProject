@@ -2,6 +2,7 @@ package view;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Observer;
 
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.search.Solution;

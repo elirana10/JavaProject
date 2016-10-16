@@ -1,15 +1,13 @@
 package view;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseWheelListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
@@ -77,6 +75,8 @@ public class MazeWindow extends BasicWindow implements View {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				shell.dispose();
+				setChanged();
+				notifyObservers("exit");
 				
 			}
 			
@@ -116,8 +116,8 @@ public class MazeWindow extends BasicWindow implements View {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-//				setChanged();
-//				notifyObservers("solve " + mazeDisplay.getName());
+				setChanged();
+				notifyObservers("solve " + mazeDisplay.getName());
 			}
 			
 			@Override
@@ -144,9 +144,34 @@ public class MazeWindow extends BasicWindow implements View {
 			}
 		});
 		
+//		Button btnGoUp = new Button(buttons, SWT.PUSH);
+//		btnGoUp.addSelectionListener(new SelectionListener() {
+//			
+//			@Override
+//			public void widgetSelected(SelectionEvent arg0) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//			
+//			@Override
+//			public void widgetDefaultSelected(SelectionEvent arg0) {
+//				mazeDisplay.setMazeData(mazeDisplay);
+//			}
+//		});
+		
 		this.mazeDisplay = new MazeDisplay(shell, SWT.BORDER);
 		this.mazeDisplay.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		this.mazeDisplay.setFocus();
+		
+//		this.shell.addMouseWheelListener(new MouseWheelListener() {
+//			
+//			@Override
+//			public void mouseScrolled(MouseEvent arg0) {
+//				if ((arg0.stateMask & SWT.CONTROL) == SWT.CONTROL) {
+//					mazeDisplay.setSize(width, height);
+//				}
+//			}
+//		});
 	}
 
 	protected void showDisplayWindow() {
@@ -277,9 +302,8 @@ public class MazeWindow extends BasicWindow implements View {
 	@Override
 	public void displaySolution(Solution name) {
 		List<State<Position>> states = name.getStates();
-		Timer t = new Timer();
 		
-		for (int i = 0; i < states.size(); i++) {
+		for (int i = 0; i < states.size()-1; i++) {
 			if (getDirectionToMove(states.get(i),states.get(i+1)).equals("RIGHT")) {
 				character.moveRight();
 				mazeDisplay.redraw();
