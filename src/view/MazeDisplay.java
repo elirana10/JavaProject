@@ -6,16 +6,17 @@ import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Widget;
-
 import algorithms.mazeGenerators.Position;
 
 public class MazeDisplay extends Canvas {
 //	private int mazeData[][][];
 	private Character character;
 	private String name;
+	private int currFloor;
+
 	private int mazeData[][] = {
 			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 			{1,0,0,0,0,0,0,0,1,1,0,1,0,0,1},
@@ -31,6 +32,7 @@ public class MazeDisplay extends Canvas {
 	
 	public MazeDisplay(Composite parent, int style) {
 		super(parent, style);
+		currFloor = 0;
 		character = new Character();
 		character.setPos(new Position(1, 2, 3));
 		
@@ -61,10 +63,11 @@ public class MazeDisplay extends Canvas {
 					character.moveDown();
 					redraw();
 					break;
-				}
 				
 			}
+		}
 		});
+		
 		
 		this.addPaintListener(new PaintListener() {
 			
@@ -107,6 +110,14 @@ public class MazeDisplay extends Canvas {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getCurrFloor() {
+		return this.currFloor;
+	}
+	
+	public void setCurrFloor(int currFloor) {
+		this.currFloor = currFloor;
 	}
 
 }

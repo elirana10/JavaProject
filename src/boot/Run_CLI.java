@@ -12,7 +12,7 @@ import view.View;
 /**
 * The Run class includes the main method which creates the MVC
 * 
-* @author  Eliran Amar & Johnathan Kfir
+* @author  Eliran Amar and Johnathan Kfir
 * @version 1.0
 * @since   2016-08-27 
 */

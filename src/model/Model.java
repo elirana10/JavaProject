@@ -9,7 +9,7 @@ import algorithms.search.Solution;
 /**
 * The model interface represents an object or JAVA POJO carrying data. It can also have logic to update controller if its data changes.
 *   
-* @author  Eliran Amar & Johnathan Kfir
+* @author  Eliran Amar and Johnathan Kfir
 * @version 1.0
 * @since   2016-13-09 
 */

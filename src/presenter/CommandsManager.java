@@ -17,7 +17,7 @@ import view.View;
 /**
 * CommandsManager includes all the user commands for Maze3d which runs from the CLI.
 *   
-* @author  Eliran Amar & Johnathan Kfir
+* @author  Eliran Amar and Johnathan Kfir
 * @version 1.0
 * @since   2016-13-09 
 */
@@ -70,17 +70,21 @@ public class CommandsManager {
 			
 			try {
 				switch(index) {
-				case "X":maze2d = maze.getCrossSectionByX(section);
-				case "Y":maze2d = maze.getCrossSectionByY(section);
-				case "Z":maze2d = maze.getCrossSectionByZ(section);
-				default:throw new Exception("Invalid section inserted");
+				case "X":
+					maze2d = maze.getCrossSectionByX(section);
+					v.display2dMaze(maze2d);
+				case "Y":
+					maze2d = maze.getCrossSectionByY(section);
+					v.display2dMaze(maze2d);
+				case "Z":
+					maze2d = maze.getCrossSectionByZ(section);
+					v.display2dMaze(maze2d);
+				default:
+					throw new Exception("Invalid section inserted");
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				//e.printStackTrace();
+				v.displayMSG(e.getMessage());
 			}
-			v.display2dMaze(maze2d);
-			
 		}
 	}
 	

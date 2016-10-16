@@ -10,7 +10,7 @@ import presenter.Command;
 /**
 * CLI class creates the Command Line Interface for the user
 *   
-* @author  Eliran Amar & Johnathan Kfir
+* @author  Eliran Amar and Johnathan Kfir
 * @version 1.0
 * @since   2016-13-09 
 */

@@ -11,7 +11,7 @@ import presenter.Presenter;
 /**
 * The view interface represents the visualization of the data that model contains.
 *   
-* @author  Eliran Amar & Johnathan Kfir
+* @author  Eliran Amar and Johnathan Kfir
 * @version 1.0
 * @since   2016-13-09 
 */

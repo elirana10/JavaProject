@@ -11,7 +11,7 @@ import view.View;
 /**
 * MyController class implements the controller interface for Maze3d.
 *   
-* @author  Eliran Amar & Johnathan Kfir
+* @author  Eliran Amar and Johnathan Kfir
 * @version 1.0
 * @since   2016-13-09 
 */

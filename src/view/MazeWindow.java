@@ -4,12 +4,11 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseWheelListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
@@ -144,34 +143,64 @@ public class MazeWindow extends BasicWindow implements View {
 			}
 		});
 		
-//		Button btnGoUp = new Button(buttons, SWT.PUSH);
-//		btnGoUp.addSelectionListener(new SelectionListener() {
-//			
-//			@Override
-//			public void widgetSelected(SelectionEvent arg0) {
-//				// TODO Auto-generated method stub
-//				
-//			}
-//			
-//			@Override
-//			public void widgetDefaultSelected(SelectionEvent arg0) {
-//				mazeDisplay.setMazeData(mazeDisplay);
-//			}
-//		});
+		Button btnGoUp = new Button(buttons, SWT.PUSH);
+		btnGoUp.setText("Up");
+		btnGoUp.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				if (mazeDisplay.getName() == null);
+				{
+					setChanged();
+					notifyObservers("display_cross_section " + mazeDisplay.getName() + " " + mazeDisplay.getCurrFloor()+1 + " Z");
+					mazeDisplay.setCurrFloor(mazeDisplay.getCurrFloor()+1);
+				}
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				
+			}
+		});
+		
+		Button btnGoDown = new Button(buttons, SWT.PUSH);
+		btnGoDown.setText("Down");
+		btnGoDown.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				if (mazeDisplay.getName().equals(null));
+				{
+					setChanged();
+					notifyObservers("display_cross_section " + mazeDisplay.getName() + " " + (mazeDisplay.getCurrFloor()-1) + " Z");
+					mazeDisplay.setCurrFloor(mazeDisplay.getCurrFloor()-1);
+				}
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				
+			}
+		});
 		
 		this.mazeDisplay = new MazeDisplay(shell, SWT.BORDER);
 		this.mazeDisplay.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		this.mazeDisplay.setFocus();
+	
+		this.shell.addMouseWheelListener(new MouseWheelListener() {
+			
+			@Override
+			public void mouseScrolled(MouseEvent arg0) {
+				if ((arg0.stateMask & SWT.CONTROL) == SWT.CONTROL) {
+					Point p = shell.getSize();
+					if (arg0.count > 0)
+						mazeDisplay.setSize((int)(p.x * 1.1), (int)(p.y * 1.1));
+					else
+						mazeDisplay.setSize((int)(p.x * 0.9), (int)(p.y * 0.9));
+				}
+			}
+		});
 		
-//		this.shell.addMouseWheelListener(new MouseWheelListener() {
-//			
-//			@Override
-//			public void mouseScrolled(MouseEvent arg0) {
-//				if ((arg0.stateMask & SWT.CONTROL) == SWT.CONTROL) {
-//					mazeDisplay.setSize(width, height);
-//				}
-//			}
-//		});
 	}
 
 	protected void showDisplayWindow() {
@@ -196,7 +225,7 @@ public class MazeWindow extends BasicWindow implements View {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				MessageBox msg = new MessageBox(shellMazeDisplayWindow,SWT.OK);
-				msg.setMessage("Displaying " + txtName.getText() + " maze");
+				msg.setMessage("Displaying " + txtName.getText());
 				msg.open();
 				
 				setChanged();
@@ -291,6 +320,7 @@ public class MazeWindow extends BasicWindow implements View {
 	@Override
 	public void display2dMaze(int[][] maze) {
 		mazeDisplay.setMazeData(maze);
+		mazeDisplay.redraw();
 	}
 
 	@Override
